@@ -51,22 +51,13 @@ public class BlogTest {
         em.persist(util3);
         
         //article
-        Article article1 = new Article();
-        article1.setId(1L);
-        article1.setUser(util);
-        util.getArticles().add(article1);
+        Article article1 = new Article(1L, util);
         em.persist(article1);
         
-        Article article2 = new Article();
-        article2.setId(2L);
-        article2.setUser(util2);
-        util2.getArticles().add(article2);
+        Article article2 = new Article(2L, util2);
         em.persist(article2);
         
-        Article article3 = new Article();
-        article3.setId(3L);
-        article3.setUser(util2);
-        util2.getArticles().add(article3);
+        Article article3 = new Article(3L, util2);
         em.persist(article3);
         //commentaire
         Commentaire com = new Commentaire();

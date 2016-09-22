@@ -33,6 +33,15 @@ public class Article implements Serializable {
     @JoinColumn(name = "utilisater_id")
     private Utilisateur user;
 
+    public Article(Long id, Utilisateur user) {
+        this.id = id;
+        this.user = user;
+        user.getArticles().add(this);
+    }
+
+    public Article() {
+    }
+
     public Utilisateur getUser() {
         return user;
     }
