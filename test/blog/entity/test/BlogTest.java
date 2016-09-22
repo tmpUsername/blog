@@ -38,16 +38,13 @@ public class BlogTest {
         em.getTransaction().begin();
         
         //Utilisateur
-        Utilisateur util = new Utilisateur();
-        util.setId(1L);
+        Utilisateur util = new Utilisateur(1L);
         em.persist(util);
         
-        Utilisateur util2 = new Utilisateur();
-        util2.setId(2L);
+        Utilisateur util2 = new Utilisateur(2L);
         em.persist(util2);
         
-        Utilisateur util3 = new Utilisateur();
-        util3.setId(3L);
+        Utilisateur util3 = new Utilisateur(3L);
         em.persist(util3);
         
         //article

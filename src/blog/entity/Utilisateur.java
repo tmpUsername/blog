@@ -28,6 +28,13 @@ public class Utilisateur implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<Article> articles = new ArrayList<>();
 
+    public Utilisateur(Long id) {
+        this.id = id;
+    }
+
+    public Utilisateur() {
+    }
+
     public List<Article> getArticles() {
         return articles;
     }
