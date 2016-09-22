@@ -27,6 +27,9 @@ public class Commentaire implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_article")
     private Article article;
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private Utilisateur utilisateur;
 
     public Commentaire(Long id, Article article) {
         this.id = id;
