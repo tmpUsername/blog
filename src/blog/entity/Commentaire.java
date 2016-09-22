@@ -28,6 +28,15 @@ public class Commentaire implements Serializable {
     @JoinColumn(name = "id_article")
     private Article article;
 
+    public Commentaire(Long id, Article article) {
+        this.id = id;
+        this.article = article;
+        article.getCommentaires().add(this);
+    }
+
+    public Commentaire() {
+    }
+
     public Article getArticle() {
         return article;
     }
@@ -68,5 +77,5 @@ public class Commentaire implements Serializable {
     public String toString() {
         return "blog.entity.Commentaire[ id=" + id + " ]";
     }
-    
+
 }
