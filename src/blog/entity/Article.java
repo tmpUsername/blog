@@ -27,6 +27,14 @@ public class Article implements Serializable {
     private Long id;
     @OneToMany(mappedBy = "article")
     private List<Commentaire> commentaires = new ArrayList<>();
+
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
     
     public Long getId() {
         return id;

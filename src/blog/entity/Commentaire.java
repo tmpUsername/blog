@@ -28,6 +28,14 @@ public class Commentaire implements Serializable {
     @JoinColumn(name = "id_article")
     private Article article;
 
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
+
     public Long getId() {
         return id;
     }
