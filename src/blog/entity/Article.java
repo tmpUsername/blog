@@ -8,11 +8,11 @@ package blog.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -30,7 +30,7 @@ public class Article implements Serializable {
     @OneToMany(mappedBy = "article")
     private List<Commentaire> commentaires = new ArrayList<>();
     @ManyToOne
-    @Column(name = "utilisater_id")
+    @JoinColumn(name = "utilisater_id")
     private Utilisateur user;
 
     public Utilisateur getUser() {
