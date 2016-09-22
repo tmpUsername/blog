@@ -7,6 +7,7 @@ package blog.entity.test;
 
 import blog.entity.Article;
 import blog.entity.Commentaire;
+import blog.entity.Utilisateur;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import junit.framework.Assert;
@@ -34,19 +35,38 @@ public class BlogTest {
         em.getTransaction().commit();
 
         //on genere la base
+        em.getTransaction().begin();
+        
+        //Utilisateur
+        Utilisateur util = new Utilisateur();
+        util.setId(1L);
+        em.persist(util);
+        
+        Utilisateur util2 = new Utilisateur();
+        util2.setId(2L);
+        em.persist(util2);
+        
+        Utilisateur util3 = new Utilisateur();
+        util3.setId(3L);
+        em.persist(util3);
         
         //article
-        em.getTransaction().begin();
         Article article1 = new Article();
         article1.setId(1L);
+        article1.setUser(util);
+        util.getArticles().add(article1);
         em.persist(article1);
         
         Article article2 = new Article();
         article2.setId(2L);
+        article2.setUser(util2);
+        util2.getArticles().add(article2);
         em.persist(article2);
         
         Article article3 = new Article();
         article3.setId(3L);
+        article3.setUser(util2);
+        util2.getArticles().add(article3);
         em.persist(article3);
         //commentaire
         Commentaire com = new Commentaire();
@@ -86,5 +106,22 @@ public class BlogTest {
         
         Article art = em.find(Article.class, 2L);
         Assert.assertEquals(art.getCommentaires().size(), 2);
+    }
+    
+    @Test
+    public void articleUtilisateurOK() {
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+        
+        Utilisateur util = em.find(Utilisateur.class, 2L);
+        Article art = em.find(Article.class, 2L);
+        Assert.assertTrue(util.getArticles().contains(art));
+    }
+    
+    @Test
+    public void compteArticleUtilisateurOK(){
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+        
+        Utilisateur util = em.find(Utilisateur.class, 2L);
+        Assert.assertEquals(util.getArticles().size(), 2);
     }
 }
