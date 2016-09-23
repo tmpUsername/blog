@@ -30,6 +30,15 @@ public class Commentaire implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_user")
     private Utilisateur utilisateur;
+    @ManyToOne
+    @JoinColumn(name = "id_page")
+    private Page page;
+
+    public Commentaire(Long id, Utilisateur utilisateur, Page page) {
+        this.id = id;
+        this.utilisateur = utilisateur;
+        this.page = page;
+    }
 
     public Commentaire(Long id, Article article, Utilisateur user) {
         this.id = id;
