@@ -7,6 +7,7 @@ package blog.entity.test;
 
 import blog.entity.Article;
 import blog.entity.Commentaire;
+import blog.entity.NumSecu;
 import blog.entity.Page;
 import blog.entity.Utilisateur;
 import javax.persistence.EntityManager;
@@ -88,6 +89,15 @@ public class BlogTest {
         Commentaire com6 = new Commentaire(6L, pa3, util);
         em.persist(com6);
 
+        //numSecu
+        NumSecu n1 = new NumSecu(1L, util);
+        em.persist(n1);
+        
+        NumSecu n2 = new NumSecu(2L, util2);
+        em.persist(n2);
+        
+        NumSecu n3 = new NumSecu(3L, util3);
+        em.persist(n3);
         //termine
         em.getTransaction().commit();
     }
@@ -175,5 +185,14 @@ public class BlogTest {
         Utilisateur util = em.find(Utilisateur.class, 1L);
         Commentaire com = em.find(Commentaire.class, 6L);
         Assert.assertTrue(util.getCommentaires().contains(com));
+    }
+    
+    @Test
+    public void numSecuUserOK(){
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+        
+        Utilisateur util = em.find(Utilisateur.class, 1L);
+        NumSecu num = em.find(NumSecu.class, 1L);
+        Assert.assertEquals(util.getNumSecu(), num);
     }
 }
