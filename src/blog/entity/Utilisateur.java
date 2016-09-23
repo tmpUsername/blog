@@ -50,6 +50,14 @@ public class Utilisateur implements Serializable {
     public List<Message> getRecus() {
         return recus;
     }
+    
+    public void addRecu(Message m) {
+        this.recus.add(m);
+    }
+    
+    public void addEnvoye(Message m) {
+        this.envoyes.add(m);
+    }
 
     public void setCommentaires(List<Commentaire> commentaires) {
         this.commentaires = commentaires;

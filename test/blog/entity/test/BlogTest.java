@@ -101,8 +101,6 @@ public class BlogTest {
         
         NumSecu n3 = new NumSecu(3L, util3);
         em.persist(n3);
-        //termine
-        em.getTransaction().commit();
         
         //Message
         List<Utilisateur> tmpdest = new ArrayList<>();
@@ -111,24 +109,26 @@ public class BlogTest {
         tmpdest.add(util2);
         Message m1 = new Message(1L, util,tmpdest );
         tmpdest.forEach(destinataire -> {
-            destinataire.getRecus().add(m1);
+            destinataire.addRecu(m1);
         });
         em.persist(m1);
         
         tmpdest.remove(util3);
         Message m2 = new Message(2L, util, tmpdest);
         tmpdest.forEach(destinataire -> {
-            destinataire.getRecus().add(m2);
+            destinataire.addRecu(m2);
         });
         em.persist(m2);
         
         Message m3 = new Message(3L, util3, tmpdest);
         tmpdest.forEach(destinataire -> {
-            destinataire.getRecus().add(m3);
+            destinataire.addRecu(m3);
         });
         em.persist(m3);
         
         
+        //TERMINE
+        em.getTransaction().commit();
     }
 
     @Test
