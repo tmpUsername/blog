@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -22,7 +24,21 @@ public class NumSecu implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private Utilisateur user;
 
+    public NumSecu() {
+    }
+
+    public NumSecu(Long id, Utilisateur user) {
+        this.id = id;
+        this.user = user;
+        user.setNumSecu(this);
+    }
+
+    
+    
     public Long getId() {
         return id;
     }
