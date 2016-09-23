@@ -7,9 +7,12 @@ package blog.entity.test;
 
 import blog.entity.Article;
 import blog.entity.Commentaire;
+import blog.entity.Message;
 import blog.entity.NumSecu;
 import blog.entity.Page;
 import blog.entity.Utilisateur;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import junit.framework.Assert;
@@ -29,10 +32,10 @@ public class BlogTest {
         //On vide la base
         em.getTransaction().begin();
         em.createQuery("DELETE FROM NumSecu n").executeUpdate();
+        em.createQuery("DELETE FROM Commentaire c").executeUpdate();
         em.createQuery("DELETE FROM Article a").executeUpdate();
         em.createQuery("DELETE FROM Page p").executeUpdate();
         em.createQuery("DELETE FROM Message m").executeUpdate();
-        em.createQuery("DELETE FROM Commentaire c").executeUpdate();
         em.createQuery("DELETE FROM Utilisateur u").executeUpdate();
         em.getTransaction().commit();
 
@@ -100,6 +103,32 @@ public class BlogTest {
         em.persist(n3);
         //termine
         em.getTransaction().commit();
+        
+        //Message
+        List<Utilisateur> tmpdest = new ArrayList<>();
+        
+        tmpdest.add(util3);
+        tmpdest.add(util2);
+        Message m1 = new Message(1L, util,tmpdest );
+        tmpdest.forEach(destinataire -> {
+            destinataire.getRecus().add(m1);
+        });
+        em.persist(m1);
+        
+        tmpdest.remove(util3);
+        Message m2 = new Message(2L, util, tmpdest);
+        tmpdest.forEach(destinataire -> {
+            destinataire.getRecus().add(m2);
+        });
+        em.persist(m2);
+        
+        Message m3 = new Message(3L, util3, tmpdest);
+        tmpdest.forEach(destinataire -> {
+            destinataire.getRecus().add(m3);
+        });
+        em.persist(m3);
+        
+        
     }
 
     @Test
@@ -195,4 +224,21 @@ public class BlogTest {
         NumSecu num = em.find(NumSecu.class, 1L);
         Assert.assertEquals(util.getNumSecu(), num);
     }
+    
+    @Test
+    public void compteUtilisateurMessageEnvoyeOK() {
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+
+        Utilisateur util = em.find(Utilisateur.class, 1L);
+        Assert.assertEquals(2, util.getEnvoyes().size());
+    }
+    
+    @Test
+    public void comptemessageUtil2OK() {
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+
+        Utilisateur util = em.find(Utilisateur.class, 2L);
+        Assert.assertEquals(3, util.getRecus().size());
+    }
+    
 }

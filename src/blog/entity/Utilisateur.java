@@ -36,22 +36,35 @@ public class Utilisateur implements Serializable {
     @OneToOne(mappedBy = "user")
     private NumSecu numSecu;
     @OneToMany(mappedBy = "expediteur")
-    private List<Message> envoye = new ArrayList<>();
-    @ManyToMany(mappedBy = "destinataire")
-    private List<Message> recu = new ArrayList<>();
+    private List<Message> envoyes = new ArrayList<>();
+    @ManyToMany(mappedBy = "destinataires")
+    private List<Message> recus = new ArrayList<>();
 
-    public List<Message> getRecu() {
-        return recu;
+    public Utilisateur() {
     }
 
-    public List<Message> getEnvoye() {
-        return envoye;
-    }
-    
-    
-    
     public Utilisateur(Long id) {
         this.id = id;
+    }
+
+    public List<Message> getRecus() {
+        return recus;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
+
+    public void setPage(List<Page> page) {
+        this.page = page;
+    }
+
+    public void setRecus(List<Message> recus) {
+        this.recus = recus;
+    }
+
+    public List<Message> getEnvoyes() {
+        return envoyes;
     }
 
     public NumSecu getNumSecu() {
@@ -68,9 +81,6 @@ public class Utilisateur implements Serializable {
 
     public List<Page> getPage() {
         return page;
-    }
-
-    public Utilisateur() {
     }
 
     public List<Article> getArticles() {

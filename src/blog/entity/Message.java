@@ -29,39 +29,44 @@ public class Message implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "id_expediteur")
     private Utilisateur expediteur;
     @ManyToMany
-    @JoinTable(name = "utilisateur message")
+    @JoinTable(name = "user_message")
     private List<Utilisateur> destinataires = new ArrayList<>();
-    public Long getId() {
-        return id;
-    }
 
     public Message() {
     }
 
-    public Message(Long id, Utilisateur expediteur, List<Utilisateur> destinataires) {
+    public Message(Long id, Utilisateur lExpediteur, List<Utilisateur> lesDestinataires) {
         this.id = id;
-        this.expediteur = expediteur;
-        expediteur.getEnvoye().add(this);
-        destinataires.forEach(destinataire ->
-                destinataire.getRecu().add(this)
-        );    
+        this.expediteur = lExpediteur;
+        lExpediteur.getEnvoyes().add(this);
+        this.destinataires.addAll(lesDestinataires);
     }
 
     public Utilisateur getExpediteur() {
         return expediteur;
     }
 
-    public List<Utilisateur> getDestinataire() {
+    public void setExpediteur(Utilisateur expediteur) {
+        this.expediteur = expediteur;
+    }
+
+    public List<Utilisateur> getDestinataires() {
         return destinataires;
     }
 
-    
-    
+    public void setDestinataires(List<Utilisateur> destinataires) {
+        this.destinataires = destinataires;
+    }
+
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     @Override
@@ -88,5 +93,5 @@ public class Message implements Serializable {
     public String toString() {
         return "blog.entity.Message[ id=" + id + " ]";
     }
-    
+
 }
