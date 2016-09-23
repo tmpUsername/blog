@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -31,9 +32,19 @@ public class Utilisateur implements Serializable {
     private List<Commentaire> commentaires = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Page> page = new ArrayList<>();
+    @OneToOne(mappedBy = "user")
+    private NumSecu numSecu;
 
     public Utilisateur(Long id) {
         this.id = id;
+    }
+
+    public NumSecu getNumSecu() {
+        return numSecu;
+    }
+
+    public void setNumSecu(NumSecu numSecu) {
+        this.numSecu = numSecu;
     }
 
     public List<Commentaire> getCommentaires() {
