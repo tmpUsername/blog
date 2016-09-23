@@ -56,15 +56,19 @@ public class BlogTest {
         
         Article article3 = new Article(3L, util2);
         em.persist(article3);
-        //commentaire
-        Commentaire com = new Commentaire(1L, article1);
+        
+        //commentaire article
+        Commentaire com = new Commentaire(1L, article1, util3);
         em.persist(com);
         
-        Commentaire com2 = new Commentaire(2L, article2);
+        Commentaire com2 = new Commentaire(2L, article2, util3);
         em.persist(com2);
         
-        Commentaire com3 = new Commentaire(3L, article2);
+        Commentaire com3 = new Commentaire(3L, article2, util);
         em.persist(com3);
+        
+        //commentaire page
+        
         
         //termine
         em.getTransaction().commit();
@@ -102,5 +106,22 @@ public class BlogTest {
         
         Utilisateur util = em.find(Utilisateur.class, 2L);
         Assert.assertEquals(2, util.getArticles().size());
+    }
+    
+    @Test
+    public void compteCommentaireUtil3OK() {
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+        
+        Utilisateur util = em.find(Utilisateur.class, 3L);
+        Assert.assertEquals(2, util.getCommentaires().size());
+    }
+    
+    @Test
+    public void utilisateurCommentaireOK() {
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+        
+        Utilisateur util = em.find(Utilisateur.class, 3L);
+        Commentaire com = em.find(Commentaire.class, 2L);
+        Assert.assertTrue(util.getCommentaires().contains(com));
     }
 }

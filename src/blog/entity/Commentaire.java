@@ -31,10 +31,12 @@ public class Commentaire implements Serializable {
     @JoinColumn(name = "id_user")
     private Utilisateur utilisateur;
 
-    public Commentaire(Long id, Article article) {
+    public Commentaire(Long id, Article article, Utilisateur user) {
         this.id = id;
         this.article = article;
+        this.utilisateur = user;
         article.getCommentaires().add(this);
+        user.getCommentaires().add(this);
     }
 
     public Commentaire() {

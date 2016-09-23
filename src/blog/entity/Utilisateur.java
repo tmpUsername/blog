@@ -31,9 +31,17 @@ public class Utilisateur implements Serializable {
     private List<Commentaire> commentaires = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Page> page = new ArrayList<>();
-    
+
     public Utilisateur(Long id) {
         this.id = id;
+    }
+
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public List<Page> getPage() {
+        return page;
     }
 
     public Utilisateur() {
@@ -46,7 +54,7 @@ public class Utilisateur implements Serializable {
     public void setArticles(List<Article> articles) {
         this.articles = articles;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -79,5 +87,5 @@ public class Utilisateur implements Serializable {
     public String toString() {
         return "blog.entity.Utilisateur[ id=" + id + " ]";
     }
-    
+
 }

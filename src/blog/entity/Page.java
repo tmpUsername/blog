@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -22,7 +24,21 @@ public class Page implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "utilisater_id")
+    private Utilisateur user;
 
+    public Page(Long id, Utilisateur user) {
+        this.id = id;
+        this.user = user;
+        user.getPage().add(this);
+    }
+
+    public Page() {
+    }
+
+    
+    
     public Long getId() {
         return id;
     }
