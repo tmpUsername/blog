@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -34,7 +35,21 @@ public class Utilisateur implements Serializable {
     private List<Page> page = new ArrayList<>();
     @OneToOne(mappedBy = "user")
     private NumSecu numSecu;
+    @OneToMany(mappedBy = "expediteur")
+    private List<Message> envoye = new ArrayList<>();
+    @ManyToMany(mappedBy = "destinataire")
+    private List<Message> recu = new ArrayList<>();
 
+    public List<Message> getRecu() {
+        return recu;
+    }
+
+    public List<Message> getEnvoye() {
+        return envoye;
+    }
+    
+    
+    
     public Utilisateur(Long id) {
         this.id = id;
     }
