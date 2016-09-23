@@ -79,7 +79,14 @@ public class BlogTest {
         em.persist(pa3);
 
         //commentaire page
-        Commentaire com4 = 
+        Commentaire com4 = new Commentaire(4L, pa, util2);
+        em.persist(com4);
+        
+        Commentaire com5 = new Commentaire(5L, pa2, util2);
+        em.persist(com5);
+        
+        Commentaire com6 = new Commentaire(6L, pa3, util);
+        em.persist(com6);
         
         //termine
         em.getTransaction().commit();

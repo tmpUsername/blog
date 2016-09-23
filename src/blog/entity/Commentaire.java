@@ -34,7 +34,7 @@ public class Commentaire implements Serializable {
     @JoinColumn(name = "id_page")
     private Page page;
 
-    public Commentaire(Long id, Utilisateur utilisateur, Page page) {
+    public Commentaire(Long id, Page page, Utilisateur utilisateur) {
         this.id = id;
         this.utilisateur = utilisateur;
         this.page = page;
