@@ -31,7 +31,7 @@ public class Page implements Serializable {
     @JoinColumn(name = "utilisater_id")
     private Utilisateur user;
     @OneToMany(mappedBy = "page")
-    private List<Page> pages = new ArrayList<>();
+    private List<Commentaire> commentaires = new ArrayList<>();
 
     public Page(Long id, Utilisateur user) {
         this.id = id;
@@ -40,6 +40,10 @@ public class Page implements Serializable {
     }
 
     public Page() {
+    }
+
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
     }
 
     public Long getId() {

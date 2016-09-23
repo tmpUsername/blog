@@ -38,6 +38,8 @@ public class Commentaire implements Serializable {
         this.id = id;
         this.utilisateur = utilisateur;
         this.page = page;
+        page.getCommentaires().add(this);
+        utilisateur.getCommentaires().add(this);
     }
 
     public Commentaire(Long id, Article article, Utilisateur user) {

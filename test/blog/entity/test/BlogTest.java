@@ -78,6 +78,9 @@ public class BlogTest {
         Page pa3 = new Page(3L, util3);
         em.persist(pa3);
 
+        //commentaire page
+        Commentaire com4 = 
+        
         //termine
         em.getTransaction().commit();
     }
