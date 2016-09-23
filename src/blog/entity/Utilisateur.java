@@ -29,6 +29,8 @@ public class Utilisateur implements Serializable {
     private List<Article> articles = new ArrayList<>();
     @OneToMany(mappedBy = "utilisateur")
     private List<Commentaire> commentaires = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Page> page = new ArrayList<>();
     
     public Utilisateur(Long id) {
         this.id = id;
