@@ -6,10 +6,16 @@
 package blog.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -22,11 +28,38 @@ public class Message implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private Utilisateur expediteur;
+    @ManyToMany
+    @JoinTable(name = "utilisateur message")
+    private List<Utilisateur> destinataires = new ArrayList<>();
     public Long getId() {
         return id;
     }
 
+    public Message() {
+    }
+
+    public Message(Long id, Utilisateur expediteur, List<Utilisateur> destinataires) {
+        this.id = id;
+        this.expediteur = expediteur;
+        expediteur.getEnvoye().add(this);
+        destinataires.forEach(destinataire ->
+                destinataire.getRecu().add(this)
+        );    
+    }
+
+    public Utilisateur getExpediteur() {
+        return expediteur;
+    }
+
+    public List<Utilisateur> getDestinataire() {
+        return destinataires;
+    }
+
+    
+    
     public void setId(Long id) {
         this.id = id;
     }
