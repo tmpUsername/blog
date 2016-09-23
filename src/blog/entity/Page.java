@@ -6,12 +6,15 @@
 package blog.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -27,6 +30,8 @@ public class Page implements Serializable {
     @ManyToOne
     @JoinColumn(name = "utilisater_id")
     private Utilisateur user;
+    @OneToMany(mappedBy = "page")
+    private List<Page> pages = new ArrayList<>();
 
     public Page(Long id, Utilisateur user) {
         this.id = id;
@@ -37,8 +42,6 @@ public class Page implements Serializable {
     public Page() {
     }
 
-    
-    
     public Long getId() {
         return id;
     }
@@ -71,5 +74,5 @@ public class Page implements Serializable {
     public String toString() {
         return "blog.entity.Page[ id=" + id + " ]";
     }
-    
+
 }
