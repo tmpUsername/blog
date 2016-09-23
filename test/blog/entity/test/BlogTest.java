@@ -81,13 +81,13 @@ public class BlogTest {
         //commentaire page
         Commentaire com4 = new Commentaire(4L, pa, util2);
         em.persist(com4);
-        
+
         Commentaire com5 = new Commentaire(5L, pa2, util2);
         em.persist(com5);
-        
+
         Commentaire com6 = new Commentaire(6L, pa3, util);
         em.persist(com6);
-        
+
         //termine
         em.getTransaction().commit();
     }
@@ -143,7 +143,7 @@ public class BlogTest {
         Assert.assertTrue(util.getCommentaires().contains(com));
     }
 
-        @Test
+    @Test
     public void comptePageUtil3OK() {
         EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
 
@@ -160,4 +160,20 @@ public class BlogTest {
         Assert.assertTrue(util.getPage().contains(page));
     }
 
+    @Test
+    public void compteCommentaireUtil2OK() {
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+
+        Utilisateur util = em.find(Utilisateur.class, 2L);
+        Assert.assertEquals(2, util.getCommentaires().size());
+    }
+
+    @Test
+    public void commentairePageOK() {
+        EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+
+        Utilisateur util = em.find(Utilisateur.class, 1L);
+        Commentaire com = em.find(Commentaire.class, 6L);
+        Assert.assertTrue(util.getCommentaires().contains(com));
+    }
 }
